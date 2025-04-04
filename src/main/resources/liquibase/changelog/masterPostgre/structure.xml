@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+						http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <changeSet id="create user table" author="phat-duong-mesoneer">
+        <createTable tableName="user">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create pizza table" author="phat-duong-mesoneer">
+        <createTable tableName="pizza">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(500)"/>
+            <column name="crust" type="varchar(255)"/>
+            <column name="size" type="varchar(255)"/>
+            <column name="price" type="double"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create drink table" author="phat-duong-mesoneer">
+        <createTable tableName="drink">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(500)"/>
+            <column name="price" type="double"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create order table" author="phat-duong-mesoneer">
+        <createTable tableName="order">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="delivery_address" type="varchar(500)"/>
+            <column name="phone_number" type="varchar(50)"/>
+            <column name="status" type="varchar(255)"/>
+            <column name="created_time" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_time" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create order pizza table" author="phat-duong-mesoneer">
+        <createTable tableName="order_pizza">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="order_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pizza_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="order_pizza"
+                baseColumnNames="order_id"
+                constraintName="fk_order_order_pizza"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="pizza"/>
+        <addForeignKeyConstraint
+                baseTableName="order_pizza"
+                baseColumnNames="pizza_id"
+                constraintName="fk_order_pizza"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="pizza"/>
+    </changeSet>
+
+    <changeSet id="create order drink table" author="phat-duong-mesoneer">
+        <createTable tableName="order_drink">
+            <column name="id" type="varchar(50)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="order_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="drink_id" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="order_drink"
+                baseColumnNames="order_id"
+                constraintName="fk_order_order_drink"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="pizza"/>
+        <addForeignKeyConstraint
+                baseTableName="order_drink"
+                baseColumnNames="drink_id"
+                constraintName="fk_order_drink"
+                onDelete="CASCADE"
+                onUpdate="RESTRICT"
+                referencedColumnNames="id"
+                referencedTableName="drink"/>
+    </changeSet>
+</databaseChangeLog>

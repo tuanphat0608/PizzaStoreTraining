@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+						http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <changeSet id="load-pizza-data" author="phat-duong-mesoneer">
+        <loadData
+                file="liquibase/data/pizzas.csv"
+                separator=","
+                tableName="pizza"
+                encoding="UTF-8">
+            <column name="id" type="STRING"/>
+            <column name="name" type="STRING"/>
+            <column name="description" type="STRING"/>
+            <column name="crust" type="STRING"/>
+            <column name="size" type="STRING"/>
+            <column name="price" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+
+    <changeSet id="load-drink-data" author="phat-duong-mesoneer">
+        <loadData
+                file="liquibase/data/drinks.csv"
+                separator=","
+                tableName="drink"
+                encoding="UTF-8">
+            <column name="id" type="STRING"/>
+            <column name="name" type="STRING"/>
+            <column name="description" type="STRING"/>
+            <column name="price" type="NUMERIC"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,11 @@
+id,name,description,crust,size,price
+"p1","Margherita","Classic cheese and tomato","THIN","SMALL","6.99"
+"p2","Pepperoni","Spicy pepperoni and cheese","THICK","MEDIUM","8.49"
+"p3","BBQ Chicken","Grilled chicken with BBQ sauce","CRISPY","LARGE","10.99"
+"p4","Hawaiian","Ham and pineapple","THICK","LARGE","9.49"
+"p5","Veggie Supreme","Fully loaded with vegetables","THIN","MEDIUM","8.99"
+"p6","Meat Feast","Beef, ham, sausage","CRISPY","LARGE","11.49"
+"p7","Four Cheese","Blend of mozzarella, cheddar, parmesan, and gorgonzola","THIN","SMALL","7.99"
+"p8","Spicy Veggie","Hot jalapeños and veggies","CRISPY","MEDIUM","8.49"
+"p9","Mushroom Magic","Garlic mushrooms with herbs","THICK","SMALL","7.49"
+"p10","Tandoori Chicken","Indian spiced chicken with onion","THIN","LARGE","10.49"
