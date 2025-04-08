@@ -4,7 +4,9 @@ import com.pizza.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,9 +41,11 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<DrinkOrderItem> drinks;
 
+    @CreationTimestamp
     @Column(name = "created_time", updatable = false, nullable = false)
     private LocalDateTime orderedDateTime;
 
+    @UpdateTimestamp
     @Column(name = "updated_time")
     private LocalDateTime updatedTime;
 

@@ -86,7 +86,7 @@
                 onDelete="CASCADE"
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"
-                referencedTableName="pizza"/>
+                referencedTableName="order"/>
         <addForeignKeyConstraint
                 baseTableName="order_pizza"
                 baseColumnNames="pizza_id"
@@ -117,7 +117,7 @@
                 onDelete="CASCADE"
                 onUpdate="RESTRICT"
                 referencedColumnNames="id"
-                referencedTableName="pizza"/>
+                referencedTableName="order"/>
         <addForeignKeyConstraint
                 baseTableName="order_drink"
                 baseColumnNames="drink_id"

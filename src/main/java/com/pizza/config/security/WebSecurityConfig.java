@@ -10,11 +10,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.Collections;
+
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -54,13 +57,13 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/auth/**") // Disable CSRF for Swagger UI
-                )
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers(AUTH_WHITELIST)
-                                .permitAll()  // Allow public access to Swagger UI and other whitelisted paths
+                                .requestMatchers(antMatcher(HttpMethod.POST, "/orders")).permitAll()
+                                .requestMatchers(antMatcher(HttpMethod.GET, "/drinks")).permitAll()
+                                .requestMatchers(antMatcher(HttpMethod.GET, "/pizzas")).permitAll()
+                                .requestMatchers(AUTH_WHITELIST).permitAll()  // Allow public access to Swagger UI and other whitelisted paths
                                 .anyRequest()
                                 .authenticated()  // Require authentication for any other requests
                 )

@@ -76,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
         order.setPhoneNumber(orderDTO.getPhoneNumber());
         order.setDeliveryAddress(orderDTO.getDeliveryAddress());
 
-        Order savedOrder = orderRepository.save(order);
+        Order savedOrder = orderRepository.saveAndFlush(order);
 
         List<DrinkOrderItem> drinkOrders = new ArrayList<>();
         List<PizzaOrderItem> pizzaOrders = new ArrayList<>();
@@ -106,9 +106,11 @@ public class OrderServiceImpl implements OrderService {
                 throw new NoSuchElementException("Drink with ID " + drinkItem.getDrinkDTO().getId() + " not found");
             }
         }
-
         pizzaOrderItemRepository.saveAll(pizzaOrders);
         drinkOrderItemRepository.saveAll(drinkOrders);
+
+        savedOrder.setPizzas(pizzaOrders);
+        savedOrder.setDrinks(drinkOrders);
 
         return converter.convertDTO(savedOrder);
     }
