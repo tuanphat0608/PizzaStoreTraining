@@ -25,7 +25,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/{orderId}")
-    public OrderDTO getOrderDetail(String orderId) {
+    public OrderDTO getOrderDetail(@PathVariable String orderId) {
         return orderService.getOrderDetailByOrderId(orderId);
     }
 
@@ -38,7 +38,7 @@ public class OrderController {
     }
 
     @PostMapping("/{orderId}")
-    public OrderDTO updateOrderStatus(@RequestParam String orderId, @RequestParam Status status) {
+    public OrderDTO updateOrderStatus(@PathVariable String orderId, @RequestParam Status status) {
         return orderService.updateOrderStatus(orderId, status);
     }
 

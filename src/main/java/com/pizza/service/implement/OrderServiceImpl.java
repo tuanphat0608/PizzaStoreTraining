@@ -50,9 +50,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<OrderDTO> findOrdersByStatus(Status status, Pageable pageable) {
-        Page<Order> ordersFromDb = orderRepository.findOrdersByStatus(status, pageable);
-        return new PageImpl<>(ordersFromDb.stream().map(converter::convertDTO).toList(),
-                ordersFromDb.getPageable(), ordersFromDb.getTotalElements());
+        if(!status.equals(Status.ALL)) {
+            Page<Order> ordersFromDb = orderRepository.findOrdersByStatus(status, pageable);
+            return new PageImpl<>(ordersFromDb.stream().map(converter::convertDTO).toList(),
+                    ordersFromDb.getPageable(), ordersFromDb.getTotalElements());
+        } else {
+            Page<Order> allOrders = orderRepository.findAll(pageable);
+            return new PageImpl<>(allOrders.stream().map(converter::convertDTO).toList(),
+                    allOrders.getPageable(), allOrders.getTotalElements());
+        }
     }
 
     @Override

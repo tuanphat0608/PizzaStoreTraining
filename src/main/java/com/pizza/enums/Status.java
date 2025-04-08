@@ -5,5 +5,6 @@ public enum Status {
     COOKED,
     CANCEL,
     DONE,
-    PENDING
+    PENDING,
+    ALL
 }
