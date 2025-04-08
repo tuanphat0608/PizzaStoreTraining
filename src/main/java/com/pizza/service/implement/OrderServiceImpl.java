@@ -57,10 +57,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void updateOrderStatus(String orderId, Status status) {
+    public OrderDTO updateOrderStatus(String orderId, Status status) {
         Optional<Order> orderOpt = orderRepository.findOrderById(orderId);
         if (orderOpt.isPresent()) {
             orderRepository.updateOrderStatus(orderId, status);
+            return converter.convertDTO(orderOpt.get());
         } else throw new NoSuchElementException("Order with ID " + orderId + " not found");
     }
 

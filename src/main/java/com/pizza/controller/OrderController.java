@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import com.pizza.service.OrderService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/orders")
@@ -37,9 +38,8 @@ public class OrderController {
     }
 
     @PostMapping("/{orderId}")
-    public ResponseEntity<String> updateOrderStatus(@RequestParam String orderId, @RequestParam Status status) {
-        orderService.updateOrderStatus(orderId, status);
-        return ResponseEntity.status(HttpStatus.OK).body(orderId);
+    public OrderDTO updateOrderStatus(@RequestParam String orderId, @RequestParam Status status) {
+        return orderService.updateOrderStatus(orderId, status);
     }
 
     @PostMapping()
@@ -48,9 +48,9 @@ public class OrderController {
     }
 
     @PostMapping("/bulk-update")
-    public ResponseEntity<List<String>> bulkUpdateOrder(@Valid @RequestBody BulkUpdateDTO bulkUpdateDTO) {
+    public Map<String, String> bulkUpdateOrder(@Valid @RequestBody BulkUpdateDTO bulkUpdateDTO) {
         orderService.bulkUpdateOrderStatus(bulkUpdateDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(bulkUpdateDTO.getUpdateIds());
+        return Map.of("ids", String.join("update ", bulkUpdateDTO.getUpdateIds()));
     }
 
 }

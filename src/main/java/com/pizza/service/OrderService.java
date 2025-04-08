@@ -12,7 +12,7 @@ public interface OrderService {
 
     Page<OrderDTO> findOrdersByStatus(Status status, Pageable pageable);
 
-    void updateOrderStatus(String orderId, Status status);
+    OrderDTO updateOrderStatus(String orderId, Status status);
 
     OrderDTO createNewOrder(OrderDTO orderDTO);
 
