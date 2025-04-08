@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.pizza.repository.UserRepository;
 import com.pizza.service.UserService;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -76,6 +75,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         CustomUserDetails customUserDetails = new CustomUserDetails(user);
 
         return jwtTokenProvider.generateToken(customUserDetails);
+    }
+
+    @Override
+    public UserDetails loadUserById(String id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new UsernameNotFoundException("User not found with id : " + id)
+        );
+
+        return new CustomUserDetails(user);
     }
 
 }

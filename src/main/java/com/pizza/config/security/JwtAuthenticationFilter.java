@@ -1,53 +1,75 @@
 package com.pizza.config.security;
 
+import com.pizza.config.CustomUserDetails;
 import com.pizza.config.JwtTokenProvider;
+import com.pizza.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.List;
+
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    @Value("${pizzaBE.security.apikey}")
+    private String AUTH_TOKEN = "";
 
-    public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private UserService customUserDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        String uri = request.getRequestURI();
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+        try {
+            String method = request.getMethod();
+            String endpoint = request.getRequestURI().toLowerCase();
+            if ((method.equals("GET") && endpoint.contains("/pizza")) || (method.equals("GET") && endpoint.contains("/drink"))
+                    || (method.equals("POST") && endpoint.equals("/order"))) {
+                String apiKey = request.getHeader("X-API-KEY");
+                if (apiKey == null || !apiKey.equals(AUTH_TOKEN)) {
+//                    SecurityContextHolder.getContext().setAuthentication(null);
+                    logger.info("API KEY MISMATCH: {}" + apiKey);
+                    throw new BadCredentialsException("Invalid API Key");
+                }
+                SecurityContextHolder.getContext().setAuthentication(new ApiKeyAuthentication(apiKey, AuthorityUtils.NO_AUTHORITIES));
 
-        // Allow Swagger UI requests to bypass authentication
-        if (uri.contains("/swagger-ui") || uri.contains("/v3/api-docs") || uri.contains("/swagger-resources")) {
-            filterChain.doFilter(request, response); // Allow Swagger UI request to proceed
-            return;
+            } else {
+                String jwt = getJwtFromRequest(request);
+                if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
+                    // Lấy id user từ chuỗi jwt
+                    String userId = jwtTokenProvider.getUserIdFromJWT(jwt);
+                    // Lấy thông tin người dùng từ id
+                    UserDetails userDetails = customUserDetailsService.loadUserById(userId);
+                    if (userDetails != null) {
+                        // Nếu người dùng hợp lệ, set thông tin cho Seturity Context
+                        UsernamePasswordAuthenticationToken
+                                authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            logger.error("failed on set user authentication", ex);
         }
 
-        // Log request URI and Authorization header for debugging
-        logger.info("Request URI: " + uri);
-        logger.info("Authorization Header: " + request.getHeader("Authorization"));
-
-        // Get JWT token from Authorization header
-        String token = getJwtFromRequest(request);
-
-        if (token != null && jwtTokenProvider.validateToken(token)) {
-            String userId = jwtTokenProvider.getUserIdFromJWT(token);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    userId, null, null // You can add roles here if needed
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(authentication); // Set authentication in the context
-        }
-
-        filterChain.doFilter(request, response); // Continue with the filter chain
+        filterChain.doFilter(request, response);
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {

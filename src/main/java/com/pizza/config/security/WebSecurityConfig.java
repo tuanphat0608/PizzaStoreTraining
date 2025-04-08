@@ -51,7 +51,7 @@ public class WebSecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(jwtTokenProvider);
+        return new JwtAuthenticationFilter();
     }
 
     @Bean
@@ -75,6 +75,14 @@ public class WebSecurityConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .components(new Components()
+                        .addSecuritySchemes(
+                                "spring_oauth",
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.APIKEY)
+                                        .description("APIKEY")
+                                        .in(SecurityScheme.In.HEADER)
+                                        .name("X_API_KEY")
+                        )
                         .addSecuritySchemes(
                                 "spring_oauth2",
                                 new SecurityScheme()

@@ -57,6 +57,7 @@ public class OrderConverter {
         return OrderDTO.builder()
                 .id(order.getId())
                 .phoneNumber(order.getPhoneNumber())
+                .name(order.getName())
                 .deliveryAddress(order.getDeliveryAddress())
                 .createdTime(order.getOrderedDateTime())
                 .pizzas(orderPizzaDTOS)
