@@ -37,8 +37,8 @@ public class OrderController {
     }
 
     @PostMapping("/{orderId}")
-    public ResponseEntity<String> updateOrderStatus(String orderId, String status) {
-        orderService.updateOrderStatus(orderId, Status.valueOf(status));
+    public ResponseEntity<String> updateOrderStatus(@RequestParam String orderId, @RequestParam Status status) {
+        orderService.updateOrderStatus(orderId, status);
         return ResponseEntity.status(HttpStatus.OK).body(orderId);
     }
 

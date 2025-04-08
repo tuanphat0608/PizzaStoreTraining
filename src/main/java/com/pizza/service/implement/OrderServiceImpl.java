@@ -5,6 +5,7 @@ import com.pizza.dto.*;
 import com.pizza.enums.Status;
 import com.pizza.model.*;
 import com.pizza.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -55,6 +56,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void updateOrderStatus(String orderId, Status status) {
         Optional<Order> orderOpt = orderRepository.findOrderById(orderId);
         if (orderOpt.isPresent()) {
@@ -63,11 +65,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void bulkUpdateOrderStatus(BulkUpdateDTO bulkUpdateDTO) {
         orderRepository.bulkUpdateOrderStatus(bulkUpdateDTO.getUpdateIds(), bulkUpdateDTO.getStatus());
     }
 
     @Override
+    @Transactional
     public OrderDTO createNewOrder(OrderDTO orderDTO) {
         Order order = new Order();
         order.setId(orderDTO.getId());
