@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class OrderConverter {
@@ -25,8 +25,9 @@ public class OrderConverter {
         List<DrinkOrderItem> drinkOrderItems = order.getDrinks();
         List<OrderPizzaDTO> orderPizzaDTOS = new ArrayList<>();
         List<OrderDrinkDTO> orderDrinkDTOS = new ArrayList<>();
+        double totalPrice = 0D;
 
-        pizzaOrderItems.forEach(item -> {
+        for(PizzaOrderItem item : pizzaOrderItems) {
             Pizza pizza = item.getPizza();
             orderPizzaDTOS.add(OrderPizzaDTO.builder()
                     .pizzaDTO(PizzaDTO.builder()
@@ -39,9 +40,10 @@ public class OrderConverter {
                             .build())
                     .quantity(item.getQuantity())
                     .build());
-        });
+            totalPrice+= (pizza.getPrice() * item.getQuantity());
+        }
 
-        drinkOrderItems.forEach(item -> {
+        for(DrinkOrderItem item : drinkOrderItems) {
             Drink drink = item.getDrink();
             orderDrinkDTOS.add(OrderDrinkDTO.builder()
                     .drinkDTO(DrinkDTO.builder()
@@ -52,7 +54,8 @@ public class OrderConverter {
                             .build())
                     .quantity(item.getQuantity())
                     .build());
-        });
+            totalPrice+= (drink.getPrice() * item.getQuantity());
+        }
 
         return OrderDTO.builder()
                 .id(order.getId())
@@ -63,6 +66,7 @@ public class OrderConverter {
                 .pizzas(orderPizzaDTOS)
                 .drinks(orderDrinkDTOS)
                 .status(order.getStatus())
+                .totalPrice(totalPrice)
                 .build();
     }
 

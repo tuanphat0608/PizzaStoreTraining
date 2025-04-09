@@ -41,4 +41,7 @@ public class OrderDTO {
 
     @JsonProperty("updated_time")
     private LocalDateTime updatedTime;
+
+    @JsonProperty("total_price")
+    private Double totalPrice;
 }
