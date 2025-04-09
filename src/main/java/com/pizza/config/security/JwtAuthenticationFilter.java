@@ -43,7 +43,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     || (method.equals("POST") && endpoint.equals("/order"))) {
                 String apiKey = request.getHeader("X-API-KEY");
                 if (apiKey == null || !apiKey.equals(AUTH_TOKEN)) {
-//                    SecurityContextHolder.getContext().setAuthentication(null);
                     logger.info("API KEY MISMATCH: {}" + apiKey);
                     throw new BadCredentialsException("Invalid API Key");
                 }
@@ -52,12 +51,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             } else {
                 String jwt = getJwtFromRequest(request);
                 if (StringUtils.hasText(jwt) && jwtTokenProvider.validateToken(jwt)) {
-                    // Lấy id user từ chuỗi jwt
                     String userId = jwtTokenProvider.getUserIdFromJWT(jwt);
-                    // Lấy thông tin người dùng từ id
                     UserDetails userDetails = customUserDetailsService.loadUserById(userId);
                     if (userDetails != null) {
-                        // Nếu người dùng hợp lệ, set thông tin cho Seturity Context
                         UsernamePasswordAuthenticationToken
                                 authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                         authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

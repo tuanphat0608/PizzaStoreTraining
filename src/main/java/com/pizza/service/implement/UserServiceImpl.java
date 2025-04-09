@@ -1,7 +1,6 @@
 package com.pizza.service.implement;
 
 import com.pizza.config.CustomUserDetails;
-import com.pizza.config.JwtTokenProvider;
 import com.pizza.dto.UserDTO;
 import com.pizza.enums.Role;
 import com.pizza.model.User;
@@ -28,10 +27,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-
-
     @Override
     public UserDTO getUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
@@ -41,7 +36,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .username(username)
                 .role(user.getRole().name())
                 .build();
-
     }
 
     @Override
@@ -67,22 +61,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setRole(Role.valueOf(registerRequest.getRole()));
 
         userRepository.save(user);
-    }
-
-    @Override
-    public String authenticateUser(String username, String password) {
-        // Find the user by username
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Check if the password is valid
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
-        }
-
-        CustomUserDetails customUserDetails = new CustomUserDetails(user);
-
-        return jwtTokenProvider.generateToken(customUserDetails);
     }
 
     @Override

@@ -13,6 +13,8 @@ import lombok.*;
 @Builder
 public class UserDTO {
 
+    private String id;
+
     @NotBlank(message = "Username cannot be blank")
     private String username;
 
