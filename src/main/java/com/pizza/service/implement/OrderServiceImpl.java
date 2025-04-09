@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
             return new PageImpl<>(ordersFromDb.stream().map(converter::convertDTO).toList(),
                     ordersFromDb.getPageable(), ordersFromDb.getTotalElements());
         } else {
-            Page<Order> allOrders = orderRepository.findAll(pageable);
+            Page<Order> allOrders = orderRepository.findAllAndSortByOrderedDateTime(pageable);
             return new PageImpl<>(allOrders.stream().map(converter::convertDTO).toList(),
                     allOrders.getPageable(), allOrders.getTotalElements());
         }

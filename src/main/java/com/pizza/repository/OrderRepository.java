@@ -19,7 +19,10 @@ public interface OrderRepository extends JpaRepository<Order, String> {
 
     Page<Order> findAll(Pageable pageable);
 
-    @Query("select o from Order o where o.status = :status")
+    @Query("select o from Order o order by o.orderedDateTime ASC")
+    Page<Order> findAllAndSortByOrderedDateTime(Pageable pageable);
+
+    @Query("select o from Order o where o.status = :status order by o.orderedDateTime ASC")
     Page<Order> findOrdersByStatus(Status status, Pageable pageable);
 
     @Modifying
