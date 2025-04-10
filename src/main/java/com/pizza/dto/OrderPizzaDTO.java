@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class OrderPizzaDTO {
 
-    private PizzaDTO pizzaDTO;
+    private PizzaDTO pizza;
 
     private Long quantity;
 

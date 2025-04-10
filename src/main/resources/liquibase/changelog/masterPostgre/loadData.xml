@@ -33,4 +33,90 @@
         </loadData>
     </changeSet>
 
+    <changeSet id="add-pizza-image-urls" author="phat-duong-mesoneer">
+        <update tableName="pizza">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_1280.jpg"/>
+            <where>id = 'p1'</where>
+        </update>
+        <update tableName="pizza">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2022/10/16/10/14/pizza-7525261_1280.jpg"/>
+            <where>id = 'p2'</where>
+        </update>
+        <update tableName="pizza">
+            <column name="image_url" value="https://www.simplyrecipes.com/thmb/1svUXQIKwrqA0FYqTj0ZUMIfG_s=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Simply-Recipes-BBQ-Chicken-Pizza-LEAD-05-eec4f74dfd4a4c7d87a37822f5642b17.jpg"/>
+            <where>id = 'p3'</where>
+        </update>
+        <update tableName="pizza">
+            <column name="image_url" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Pizza_with_pineapple.jpg/800px-Pizza_with_pineapple.jpg"/>
+            <where>id = 'p4'</where>
+        </update>
+        <update tableName="pizza">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2016/03/05/19/02/pizza-1239079_1280.jpg"/>
+            <where>id = 'p5'</where>
+        </update>
+        <update tableName="pizza">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2022/06/11/12/47/pizza-7255843_1280.jpg"/>
+            <where>id = 'p6'</where>
+        </update>
+        <update tableName="pizza">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007399_1280.jpg"/>
+            <where>id = 'p7'</where>
+        </update>
+        <update tableName="pizza">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2022/07/04/12/41/pizza-7300086_1280.jpg"/>
+            <where>id = 'p8'</where>
+        </update>
+        <update tableName="pizza">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2020/03/07/13/48/pizza-4909513_1280.jpg"/>
+            <where>id = 'p9'</where>
+        </update>
+        <update tableName="pizza">
+            <column name="image_url" value="https://www.archanaskitchen.com/images/archanaskitchen/1-Author/shaheen_ali/Tandoori_Chicken_Pizza.jpg"/>
+            <where>id = 'p10'</where>
+        </update>
+    </changeSet>
+
+    <changeSet id="add-drink-image-urls" author="phat-duong-mesoneer">
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2016/03/05/21/13/coca-cola-1239458_1280.jpg"/>
+            <where>id = '3779f93c-c9ea-4265-925d-6fcff14d2022'</where>
+        </update>
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2020/03/25/14/53/pepsi-4966776_1280.jpg"/>
+            <where>id = '144c907b-7353-4ce9-be2d-42241465e11b'</where>
+        </update>
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2020/07/08/17/19/sprite-5383870_1280.jpg"/>
+            <where>id = 'c2e881eb-ba55-4540-88e4-174fa4346da7'</where>
+        </update>
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2020/05/17/20/36/fanta-5181043_1280.jpg"/>
+            <where>id = '0a068a3d-6048-4eef-be07-3de94ffdd1ef'</where>
+        </update>
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2023/09/21/11/28/soda-8266510_1280.jpg"/>
+            <where>id = '662f5f68-37bb-4507-b22b-73425a716662'</where>
+        </update>
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2020/07/12/14/25/mountain-dew-5397361_1280.jpg"/>
+            <where>id = '8bfe4fcc-a12d-4aae-abb1-ff1acd5e3474'</where>
+        </update>
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2016/08/02/21/43/ice-tea-1560870_1280.jpg"/>
+            <where>id = '13e5d13e-d2b9-4693-a5d9-e2d25305ba31'</where>
+        </update>
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2015/07/02/20/33/lemonade-828743_1280.jpg"/>
+            <where>id = '942bf6e5-fff2-4987-9a9b-666b7c5759ee'</where>
+        </update>
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2016/06/17/20/42/root-beer-1468088_1280.jpg"/>
+            <where>id = 'af01549f-bcfe-4a5e-87f9-f1369730d8fc'</where>
+        </update>
+        <update tableName="drink">
+            <column name="image_url" value="https://cdn.pixabay.com/photo/2015/07/02/20/18/orange-juice-828648_1280.jpg"/>
+            <where>id = '1d80900a-6b70-4522-84e2-57bd92bdc70f'</where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>

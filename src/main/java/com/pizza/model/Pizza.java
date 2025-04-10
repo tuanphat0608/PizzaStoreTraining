@@ -35,4 +35,7 @@ public class Pizza {
     @NotBlank
     private Double price;
 
+    @Column(name = "image_url")
+    private String image;
+
 }

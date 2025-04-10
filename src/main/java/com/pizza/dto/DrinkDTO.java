@@ -1,5 +1,6 @@
 package com.pizza.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter
@@ -16,4 +17,8 @@ public class DrinkDTO {
     private String description;
 
     private Double price;
+
+    @JsonProperty("image_url")
+    private String image;
+
 }

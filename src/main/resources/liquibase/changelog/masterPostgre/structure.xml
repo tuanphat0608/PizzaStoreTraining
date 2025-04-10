@@ -127,4 +127,15 @@
                 referencedColumnNames="id"
                 referencedTableName="drink"/>
     </changeSet>
+
+    <changeSet id="add image url" author="phat-duong-mesoneer">
+        <addColumn tableName="pizza">
+            <column name="image_url"
+                    type="varchar(500)"/>
+        </addColumn>
+        <addColumn tableName="drink">
+            <column name="image_url"
+                    type="varchar(500)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
             return new PageImpl<>(ordersFromDb.stream().map(converter::convertDTO).toList(),
                     ordersFromDb.getPageable(), ordersFromDb.getTotalElements());
         } else {
-            Page<Order> allOrders = orderRepository.findAllAndSortByOrderedDateTime(pageable);
+            Page<Order> allOrders = orderRepository.findAll(pageable);
             return new PageImpl<>(allOrders.stream().map(converter::convertDTO).toList(),
                     allOrders.getPageable(), allOrders.getTotalElements());
         }
@@ -93,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
         List<PizzaOrderItem> pizzaOrders = new ArrayList<>();
 
         for (OrderPizzaDTO pizzaItem : orderDTO.getPizzas()) {
-            Optional<Pizza> pizza = pizzaRepository.findById(pizzaItem.getPizzaDTO().getId());
+            Optional<Pizza> pizza = pizzaRepository.findById(pizzaItem.getPizza().getId());
             if (pizza.isPresent()) {
                 PizzaOrderItem orderPizza = new PizzaOrderItem();
                 orderPizza.setOrder(savedOrder);
@@ -101,12 +101,12 @@ public class OrderServiceImpl implements OrderService {
                 orderPizza.setQuantity(pizzaItem.getQuantity());
                 pizzaOrders.add(orderPizza);
             } else {
-                throw new NoSuchElementException("Pizza with ID " + pizzaItem.getPizzaDTO().getId() + " not found");
+                throw new NoSuchElementException("Pizza with ID " + pizzaItem.getPizza().getId() + " not found");
             }
         }
 
         for (OrderDrinkDTO drinkItem : orderDTO.getDrinks()) {
-            Optional<Drink> drink = drinkRepository.findById(drinkItem.getDrinkDTO().getId());
+            Optional<Drink> drink = drinkRepository.findById(drinkItem.getDrink().getId());
             if (drink.isPresent()) {
                 DrinkOrderItem drinkOrder = new DrinkOrderItem();
                 drinkOrder.setOrder(savedOrder);
@@ -114,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
                 drinkOrder.setQuantity(drinkItem.getQuantity());
                 drinkOrders.add(drinkOrder);
             } else {
-                throw new NoSuchElementException("Drink with ID " + drinkItem.getDrinkDTO().getId() + " not found");
+                throw new NoSuchElementException("Drink with ID " + drinkItem.getDrink().getId() + " not found");
             }
         }
         pizzaOrderItemRepository.saveAll(pizzaOrders);

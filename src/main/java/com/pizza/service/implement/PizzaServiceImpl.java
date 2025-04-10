@@ -31,6 +31,7 @@ public class PizzaServiceImpl implements PizzaService {
                 .crust(pizza.getCrust())
                 .size(pizza.getSize())
                 .price(pizza.getPrice())
+                .image(pizza.getImage())
                 .build();
     }
 }

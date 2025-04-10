@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface DrinkRepository extends JpaRepository<Drink,String> {
 
-    @Query("select new com.pizza.dto.DrinkDTO(d.id, d.name, d.description, d.price) from Drink d")
+    @Query("select new com.pizza.dto.DrinkDTO(d.id, d.name, d.description, d.price, d.image) from Drink d")
     Page<DrinkDTO> findAllDrinkDTO(Pageable pageable);
 
 }

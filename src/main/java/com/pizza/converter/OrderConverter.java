@@ -30,7 +30,7 @@ public class OrderConverter {
         for(PizzaOrderItem item : pizzaOrderItems) {
             Pizza pizza = item.getPizza();
             orderPizzaDTOS.add(OrderPizzaDTO.builder()
-                    .pizzaDTO(PizzaDTO.builder()
+                    .pizza(PizzaDTO.builder()
                             .id(pizza.getId())
                             .name(pizza.getName())
                             .description(pizza.getDescription())
@@ -46,7 +46,7 @@ public class OrderConverter {
         for(DrinkOrderItem item : drinkOrderItems) {
             Drink drink = item.getDrink();
             orderDrinkDTOS.add(OrderDrinkDTO.builder()
-                    .drinkDTO(DrinkDTO.builder()
+                    .drink(DrinkDTO.builder()
                             .id(drink.getId())
                             .name(drink.getName())
                             .description(drink.getDescription())
