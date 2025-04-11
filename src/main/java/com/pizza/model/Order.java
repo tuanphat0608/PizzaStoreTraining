@@ -3,13 +3,12 @@ package com.pizza.model;
 import com.pizza.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
+import java.util.List;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -20,35 +19,35 @@ import java.util.List;
 @Builder
 public class Order {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+  @Id
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "uuid2")
+  private String id;
 
-    private String name;
+  private String name;
 
-    @NotBlank
-    @Column(name = "delivery_address")
-    private String deliveryAddress;
+  @NotBlank
+  @Column(name = "delivery_address")
+  private String deliveryAddress;
 
-    @NotBlank
-    @Column(name = "phone_number")
-    private String phoneNumber;
+  @NotBlank
+  @Column(name = "phone_number")
+  private String phoneNumber;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<PizzaOrderItem> pizzas;
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+  private List<PizzaOrderItem> pizzas;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<DrinkOrderItem> drinks;
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+  private List<DrinkOrderItem> drinks;
 
-    @CreationTimestamp
-    @Column(name = "created_time", updatable = false, nullable = false)
-    private LocalDateTime orderedDateTime;
+  @CreationTimestamp
+  @Column(name = "created_time", updatable = false, nullable = false)
+  private LocalDateTime orderedDateTime;
 
-    @UpdateTimestamp
-    @Column(name = "updated_time")
-    private LocalDateTime updatedTime;
+  @UpdateTimestamp
+  @Column(name = "updated_time")
+  private LocalDateTime updatedTime;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
+  @Enumerated(EnumType.STRING)
+  private Status status;
 }

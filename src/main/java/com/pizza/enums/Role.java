@@ -1,7 +1,7 @@
 package com.pizza.enums;
 
 public enum Role {
-    RECEPTIONIST,
-    CHEF,
-    DELIVERY
+  RECEPTIONIST,
+  CHEF,
+  DELIVERY
 }

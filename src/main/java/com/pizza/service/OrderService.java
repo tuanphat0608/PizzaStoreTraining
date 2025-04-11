@@ -8,13 +8,13 @@ import org.springframework.data.domain.Pageable;
 
 public interface OrderService {
 
-    OrderDTO getOrderDetailByOrderId(String orderId);
+  OrderDTO getOrderDetailByOrderId(String orderId);
 
-    Page<OrderDTO> findOrdersByStatus(Status status, Pageable pageable);
+  Page<OrderDTO> findOrdersByStatus(Status status, Pageable pageable);
 
-    OrderDTO updateOrderStatus(String orderId, Status status);
+  OrderDTO updateOrderStatus(String orderId, Status status);
 
-    OrderDTO createNewOrder(OrderDTO orderDTO);
+  OrderDTO createNewOrder(OrderDTO orderDTO);
 
-    void bulkUpdateOrderStatus(BulkUpdateDTO bulkUpdateDTO);
+  void bulkUpdateOrderStatus(BulkUpdateDTO bulkUpdateDTO);
 }

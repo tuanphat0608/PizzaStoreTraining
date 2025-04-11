@@ -3,7 +3,6 @@ package com.pizza.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.pizza.enums.Crust;
 import com.pizza.enums.Size;
-import jakarta.persistence.Column;
 import lombok.*;
 
 @Getter
@@ -13,19 +12,18 @@ import lombok.*;
 @Builder
 public class PizzaDTO {
 
-    private String id;
+  private String id;
 
-    private String name;
+  private String name;
 
-    private String description;
+  private String description;
 
-    private Crust crust;
+  private Crust crust;
 
-    private Size size;
+  private Size size;
 
-    private Double price;
+  private Double price;
 
-    @JsonProperty("image_url")
-    private String image;
-
+  @JsonProperty("image_url")
+  private String image;
 }

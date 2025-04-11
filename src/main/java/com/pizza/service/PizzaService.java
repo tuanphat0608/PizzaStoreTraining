@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface PizzaService {
 
-    Page<PizzaDTO> getAllPizza(Pageable pageable);
+  Page<PizzaDTO> getAllPizza(Pageable pageable);
 }

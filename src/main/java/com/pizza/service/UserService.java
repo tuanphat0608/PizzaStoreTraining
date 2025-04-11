@@ -1,16 +1,13 @@
 package com.pizza.service;
 
-import com.pizza.dto.LoginRequest;
-import com.pizza.dto.LoginResponse;
 import com.pizza.dto.UserDTO;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
-    UserDTO getUserByUsername(String username);
+  UserDTO getUserByUsername(String username);
 
-    void registerUser(UserDTO userDTO);
+  void registerUser(UserDTO userDTO);
 
-    UserDetails loadUserById(String id);
-
+  UserDetails loadUserById(String id);
 }

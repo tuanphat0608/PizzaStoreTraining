@@ -13,19 +13,18 @@ import org.hibernate.annotations.GenericGenerator;
 @Builder
 public class DrinkOrderItem {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+  @Id
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "uuid2")
+  private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+  @ManyToOne
+  @JoinColumn(name = "order_id", nullable = false)
+  private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "drink_id", nullable = false)
-    private Drink drink;
+  @ManyToOne
+  @JoinColumn(name = "drink_id", nullable = false)
+  private Drink drink;
 
-    private Long quantity;
-
+  private Long quantity;
 }

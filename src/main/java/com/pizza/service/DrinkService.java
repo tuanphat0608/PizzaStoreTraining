@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface DrinkService {
 
-    Page<DrinkDTO> getAllDrinks(Pageable pageable);
+  Page<DrinkDTO> getAllDrinks(Pageable pageable);
 }

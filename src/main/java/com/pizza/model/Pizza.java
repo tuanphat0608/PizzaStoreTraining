@@ -16,26 +16,23 @@ import org.hibernate.annotations.GenericGenerator;
 @Builder
 public class Pizza {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+  @Id
+  @GeneratedValue(generator = "uuid")
+  @GenericGenerator(name = "uuid", strategy = "uuid2")
+  private String id;
 
-    @NotBlank
-    private String name;
+  @NotBlank private String name;
 
-    private String description;
+  private String description;
 
-    @Enumerated(EnumType.STRING)
-    private Crust crust;
+  @Enumerated(EnumType.STRING)
+  private Crust crust;
 
-    @Enumerated(EnumType.STRING)
-    private Size size;
+  @Enumerated(EnumType.STRING)
+  private Size size;
 
-    @NotBlank
-    private Double price;
+  @NotBlank private Double price;
 
-    @Column(name = "image_url")
-    private String image;
-
+  @Column(name = "image_url")
+  private String image;
 }
